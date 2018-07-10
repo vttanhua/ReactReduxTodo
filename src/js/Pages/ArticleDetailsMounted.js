@@ -19,7 +19,7 @@ class ArticleDetailsMounted extends Component{
 		return (
 			<div>
 				<h2>ArticleDetail:id is {this.props.article.id}</h2>
-				<h3>{this.props.article.title}</h3>
+				<h3>{this.props.article.title}</h3> 
 			</div>		
 		);
 	}
