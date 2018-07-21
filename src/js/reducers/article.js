@@ -22,12 +22,13 @@ const articleReducer = (state = initialState, action) => {
 			//	articlesById: {...state.articlesById, articlesById[action.payload.id]: action.payload}};		 	
 		 }
 		case SELECT_ARTICLE:{
-		 	return  Immutable({ ...state, selectedArticleId: action.payload.selectedId});
+			console.log(action.payload)
+		 	return  Immutable({ ...state, selectedArticleId: action.payload});
 		 }		
 		 case DELETE_ARTICLE:{
-		 	console.log("Deleting article with key: "+action.payload.selectedId);
-		 	var index = state.articlesByKey[action.payload.selectedId];
-		 	console.log("Article with key: "+action.payload.selectedId+" is in index: "+index);
+		 	console.log("Deleting article with key: "+action.payload);
+		 	var index = state.articlesByKey[action.payload];
+		 	console.log("Article with key: "+action.payload+" is in index: "+index);
 		 	var articlesNew = [...state.articles.slice(0,index),...state.articles.slice(index+1)];
 		 	var articlesByKeyNew = _.omit(state.articlesByKey, action.payload.selectedId.foreach(function(element) {
 			  console.log(element);
