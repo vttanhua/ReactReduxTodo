@@ -3,8 +3,8 @@ import { render } from "react-dom";
 import { Provider } from "react-redux";
 import store from "./store/index";
 import ArticleListing from "./Pages/ArticleListing";
-import ArticleDetails from "./Pages/ArticleDetails";
-//import ArticleDetails from "./Pages/ArticleDetailsMounted";
+//import ArticleDetails from "./Pages/ArticleDetails";
+import ArticleDetails from "./Pages/ArticleDetailsMounted";
 import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
 
 const NavBar = () => (

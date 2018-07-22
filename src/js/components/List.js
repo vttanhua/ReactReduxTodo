@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 
 import * as articlesSelectors from "../reducers/article";
 import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
-import { selectArticle } from "../actions/article";
+import { selectArticle, loadArticles } from "../actions/article";
 
 const mapStateToProps = state => {
 	return { articles: articlesSelectors.getArticles(state) };  //load state using selectors!
@@ -12,7 +12,9 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
 	return {
-		selectArticle: selectedId => dispatch(selectArticle(selectedId))
+		selectArticle: selectedId => dispatch(selectArticle(selectedId)),
+		loadArticles: ()=>dispatch(loadArticles())
+
 	};
 };
 
@@ -24,6 +26,7 @@ class ConnectedList extends Component{
 
  	componentDidMount() {
  		console.log("List component componentDidMount method!");
+ 		this.props.loadArticles();
  	}
 
 	handleOnClick(event) {
