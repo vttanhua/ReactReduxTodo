@@ -1,4 +1,6 @@
-import { ADD_ARTICLE, SELECT_ARTICLE, DELETE_ARTICLE, LOADING_ARTICLES_FAILED, LOADING_ARTICLES_SUCCEEDED }  from "../constants/article";
+import { ADD_ARTICLE,ADD_ARTICLE_SUCCEEDED, ADD_ARTICLE_FAILED,
+	 	SELECT_ARTICLE, DELETE_ARTICLE,
+	 	LOADING_ARTICLES_FAILED, LOADING_ARTICLES_SUCCEEDED }  from "../constants/article";
 import Immutable from 'seamless-immutable';
 import _ from 'lodash';
 
@@ -12,29 +14,30 @@ const initialState =Immutable( {
 //LOADING_ARTICLES_FAILED, LOADING_ARTICLES_SUCCEEDED
 /* Article reducer for client side processing begins*/
 const articleReducer = (state = initialState, action) => {
+	console.log("Came to article reducer with action: "+action.type);
 	switch (action.type){
 		case LOADING_ARTICLES_SUCCEEDED:{
 			console.log("Article reducer handling event: "+LOADING_ARTICLES_SUCCEEDED);
-			var articlesByKey = _.keyBy(action.payload,function(o){
-				return o.id;
-			});
+			var articlesByKey = new Object();
+			for(var i = 0; i < action.payload.length; i ++){
+				articlesByKey[""+action.payload[i].id]=i;
+			}
 			return Immutable({... state, articles: action.payload, articlesByKey:articlesByKey});
 		}
 		case LOADING_ARTICLES_FAILED:{
 			console.log("Article reducer handling event: "+LOADING_ARTICLES_FAILED);
 			return state;
 		}
-		case ADD_ARTICLE:{
-			console.log("Article reducer handling event: "+ADD_ARTICLE);
+		case ADD_ARTICLE_SUCCEEDED:{
+			console.log("Article reducer handling event: "+ADD_ARTICLE_SUCCEEDED);
 		 	var p = Immutable({ ...state, articles: [...state.articles,action.payload],
 		 					 articlesByKey: Immutable.set(state.articlesByKey,action.payload.id,state.articles.length)});
 		 	return p;
-		 	     // articlesByKey: Immutable.merge(state.articlesByKey, {action.payload.id: state.articles.length-1})};//TODO how to do this easier!!
-		 	//newState.articlesByKey[action.payload.id] = newState.articles.length-1;
-		 	//return { ...state, articles: [...state.articles,action.payload]}
-			//	articlesById: {...state.articlesById, articlesById[action.payload.id]: action.payload}};
-			//return { ...state, articles: [...state.articles,action.payload], 
-			//	articlesById: {...state.articlesById, articlesById[action.payload.id]: action.payload}};		 	
+		 }
+		 case ADD_ARTICLE_FAILED:{
+			console.log("Article reducer handling event: "+ADD_ARTICLE_FAILED);
+		 	console.log("Creating article failed. Error message is: "+action.payload);
+		 	return state;
 		 }
 		case SELECT_ARTICLE:{
 			console.log("Article reducer handling event: "+SELECT_ARTICLE);
