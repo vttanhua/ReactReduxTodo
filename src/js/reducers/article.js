@@ -1,5 +1,6 @@
 import { ADD_ARTICLE,ADD_ARTICLE_SUCCEEDED, ADD_ARTICLE_FAILED,
-	 	SELECT_ARTICLE, DELETE_ARTICLE,
+	 	SELECT_ARTICLE, 
+	 	DELETE_ARTICLE, DELETE_ARTICLE_SUCCEEDED, DELETE_ARTICLE_FAILED,
 	 	LOADING_ARTICLES_FAILED, LOADING_ARTICLES_SUCCEEDED }  from "../constants/article";
 import Immutable from 'seamless-immutable';
 import _ from 'lodash';
@@ -7,10 +8,19 @@ import _ from 'lodash';
 const initialState =Immutable( {
 	articles: [],
 	articlesByKey: {},
-	selectedArticleId: 1,
+	selectedArticleId: -1,
 	loadingStatus: false,
 	errorMessage: ""
 });
+
+function getArticlesByKeyMap(articles){
+	var articlesByKey = new Object();
+	for(var i = 0; i < articles.length; i ++){
+		articlesByKey[""+articles[i].id]=i;
+	}
+	return articlesByKey;
+}
+
 //LOADING_ARTICLES_FAILED, LOADING_ARTICLES_SUCCEEDED
 /* Article reducer for client side processing begins*/
 const articleReducer = (state = initialState, action) => {
@@ -18,11 +28,11 @@ const articleReducer = (state = initialState, action) => {
 	switch (action.type){
 		case LOADING_ARTICLES_SUCCEEDED:{
 			console.log("Article reducer handling event: "+LOADING_ARTICLES_SUCCEEDED);
-			var articlesByKey = new Object();
-			for(var i = 0; i < action.payload.length; i ++){
-				articlesByKey[""+action.payload[i].id]=i;
-			}
-			return Immutable({... state, articles: action.payload, articlesByKey:articlesByKey});
+			var loadedArticles = action.payload;
+			if(loadedArticles == "")
+				loadedArticles = new Array();
+			var articlesByKeyNew = getArticlesByKeyMap(loadedArticles);
+			return Immutable({... state, articles: loadedArticles, articlesByKey:articlesByKeyNew});
 		}
 		case LOADING_ARTICLES_FAILED:{
 			console.log("Article reducer handling event: "+LOADING_ARTICLES_FAILED);
@@ -44,22 +54,21 @@ const articleReducer = (state = initialState, action) => {
 			console.log(action.payload)
 		 	return  Immutable({ ...state, selectedArticleId: action.payload});
 		 }		
-		 case DELETE_ARTICLE:{
-		 	console.log("Article reducer handling event: "+DELETE_ARTICLE);
+		 case DELETE_ARTICLE_SUCCEEDED:{
+		 	console.log("Article reducer handling event: "+DELETE_ARTICLE_SUCCEEDED);
 		 	console.log("Deleting article with key: "+action.payload);
 		 	var index = state.articlesByKey[action.payload];
 		 	console.log("Article with key: "+action.payload+" is in index: "+index);
 		 	var articlesNew = [...state.articles.slice(0,index),...state.articles.slice(index+1)];
-		 	var articlesByKeyNew = _.omit(state.articlesByKey, action.payload.selectedId.foreach(function(element) {
-			  console.log(element);
-			  return element-1;
-			})
-			);
+		 	var articlesByKeyNew =  getArticlesByKeyMap(articlesNew);
 
 		 	let selectedArticleIdNew = state.selectedArticleId;
-		 	if(state.selectedArticleId == action.payload.selectedId)
+		 	if(state.selectedArticleId == action.payload)
 		 		selectedArticleIdNew = -1;
-		 	return  Immutable({ ...state, articles: articlesNew, articlesByKeyNew: articlesByKey,selectedArticleId:selectedArticleIdNew});
+		 	return  Immutable({ ...state, articles: articlesNew, articlesByKey: articlesByKeyNew,selectedArticleId:selectedArticleIdNew});
+		 }
+		 case DELETE_ARTICLE_FAILED:{
+		 	return state;
 		 }
 		default:{
 			console.log("Article reducer handling event: default");

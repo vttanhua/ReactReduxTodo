@@ -8,7 +8,9 @@ export const addArticleFailed = article => ({type: ADD_ARTICLE_FAILED, payload: 
 
 export const selectArticle = selectedId =>({type: SELECT_ARTICLE, payload: selectedId});
 
-export const deleteArticle = selectedId =>({type: DELETE_ARTICLE, payload: selectedId});
+export const deleteArticle = id =>({type: DELETE_ARTICLE, payload: id});
+export const deleteArticlesSucceeded = data => ({type: DELETE_ARTICLE_SUCCEEDED, payload: data});
+export const deleteArticlesFailed = errorMessage => ({type: DELETE_ARTICLE_FAILED, payload: errorMessage});
 
 export const loadArticles = () => ({type: LOAD_ARTICLES_REQUESTED, payload: undefined});
 export const loadingArticlesSucceeded = data => ({type: LOADING_ARTICLES_SUCCEEDED, payload: data});

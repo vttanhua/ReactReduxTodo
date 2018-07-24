@@ -23,3 +23,12 @@ export function createArticle(article){
 				catch(err => {return err;});
 }
 
+
+export function deleteArticle(id){
+	return 	client.delete(baseUrl+"/api/article/"+id).
+				then(response=>{
+					return new HttpResponseWrapper(response);
+					}).
+				catch(err => {return err;});
+}
+
