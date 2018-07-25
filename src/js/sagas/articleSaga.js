@@ -1,5 +1,6 @@
 import { call, put, takeEvery, takeLatest} from 'redux-saga/effects'
 import {  	ADD_ARTICLE, ADD_ARTICLE_SUCCEEDED, ADD_ARTICLE_FAILED,
+			UPDATE_ARTICLE, UPDATE_ARTICLE_SUCCEEDED, UPDATE_ARTICLE_FAILED,
 			DELETE_ARTICLE, DELETE_ARTICLE_SUCCEEDED, DELETE_ARTICLE_FAILED,
 		  	LOAD_ARTICLES_REQUESTED, LOADING_ARTICLES_SUCCEEDED, LOADING_ARTICLES_FAILED } from '../constants/article'
 import * as articleService from '../services/articleService'
@@ -15,6 +16,16 @@ function* addArticle(action){
 	}catch(e){          
 		console.log("add article error: "+e.message);
 		yield put({type:ADD_ARTICLE_FAILED, payload:e.message});
+	}
+}
+function* updateArticle(action){
+	try{
+		console.log("Updating article from redux-saga!"+action.payload.title);
+		const updateArticleResult = yield call(articleService.updateArticle,action.payload);
+		yield put({type:UPDATE_ARTICLE_SUCCEEDED, payload:action.payload});
+	}catch(e){          
+		console.log("update article error: "+e.message);
+		yield put({type:UPDATE_ARTICLE_FAILED, payload:e.message});
 	}
 }
 
@@ -45,6 +56,7 @@ function* loadArticles(action){
 function* articleSaga(){
 	yield takeLatest(LOAD_ARTICLES_REQUESTED, loadArticles);
  	yield takeEvery(ADD_ARTICLE,addArticle);
+ 	yield takeEvery(UPDATE_ARTICLE, updateArticle);
  	yield takeEvery(DELETE_ARTICLE,deleteArticle);
 }
 

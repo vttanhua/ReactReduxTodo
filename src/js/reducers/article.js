@@ -10,7 +10,8 @@ const initialState =Immutable( {
 	articlesByKey: {},
 	selectedArticleId: -1,
 	loadingStatus: false,
-	errorMessage: ""
+	errorMessage: "",
+	statusMessage: ""
 });
 
 function getArticlesByKeyMap(articles){
@@ -28,10 +29,10 @@ const articleReducer = (state = initialState, action) => {
 	switch (action.type){
 		case LOADING_ARTICLES_SUCCEEDED:{
 			console.log("Article reducer handling event: "+LOADING_ARTICLES_SUCCEEDED);
-			var loadedArticles = action.payload;
 			if(loadedArticles == "")
 				loadedArticles = new Array();
 			var articlesByKeyNew = getArticlesByKeyMap(loadedArticles);
+			var articlesByKeyNewTest =_.map(loadedArticles)
 			return Immutable({... state, articles: loadedArticles, articlesByKey:articlesByKeyNew});
 		}
 		case LOADING_ARTICLES_FAILED:{
