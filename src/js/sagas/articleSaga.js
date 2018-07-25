@@ -22,6 +22,7 @@ function* updateArticle(action){
 	try{
 		console.log("Updating article from redux-saga!"+action.payload.title);
 		const updateArticleResult = yield call(articleService.updateArticle,action.payload);
+		yield put({type:LOAD_ARTICLES_REQUESTED, undefined});
 		yield put({type:UPDATE_ARTICLE_SUCCEEDED, payload:action.payload});
 	}catch(e){          
 		console.log("update article error: "+e.message);

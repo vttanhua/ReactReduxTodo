@@ -1,7 +1,8 @@
 import { ADD_ARTICLE,ADD_ARTICLE_SUCCEEDED, ADD_ARTICLE_FAILED,
 	 	SELECT_ARTICLE, 
 	 	DELETE_ARTICLE, DELETE_ARTICLE_SUCCEEDED, DELETE_ARTICLE_FAILED,
-	 	LOADING_ARTICLES_FAILED, LOADING_ARTICLES_SUCCEEDED }  from "../constants/article";
+	 	LOADING_ARTICLES_FAILED, LOADING_ARTICLES_SUCCEEDED,
+	 	UPDATE_ARTICLE_SUCCEEDED,UPDATE_ARTICLE_FAILED }  from "../constants/article";
 import Immutable from 'seamless-immutable';
 import _ from 'lodash';
 
@@ -51,6 +52,17 @@ const articleReducer = (state = initialState, action) => {
 		 	console.log("Creating article failed. Error message is: "+action.payload);
 		 	return state;
 		 }
+		case UPDATE_ARTICLE_SUCCEEDED:{
+			//console.log("Article reducer handling event: "+ADD_ARTICLE_SUCCEEDED);
+		 	//var p = Immutable({ ...state, articles: [...state.articles,action.payload],
+		 	//				 articlesByKey: Immutable.set(state.articlesByKey,action.payload.id,state.articles.length)});
+		 	return state;
+		 }
+		 case UPDATE_ARTICLE_FAILED:{
+			//console.log("Article reducer handling event: "+ADD_ARTICLE_FAILED);
+		 	//console.log("Creating article failed. Error message is: "+action.payload);
+		 	return state;
+		 }		 
 		case SELECT_ARTICLE:{
 			console.log("Article reducer handling event: "+SELECT_ARTICLE);
 			console.log(action.payload)
