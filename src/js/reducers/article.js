@@ -29,6 +29,7 @@ const articleReducer = (state = initialState, action) => {
 	switch (action.type){
 		case LOADING_ARTICLES_SUCCEEDED:{
 			console.log("Article reducer handling event: "+LOADING_ARTICLES_SUCCEEDED);
+			var loadedArticles = action.payload;
 			if(loadedArticles == "")
 				loadedArticles = new Array();
 			var articlesByKeyNew = getArticlesByKeyMap(loadedArticles);
