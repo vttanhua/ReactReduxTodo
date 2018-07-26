@@ -10,9 +10,7 @@ const initialState =Immutable( {
 	articles: [],
 	articlesByKey: {},
 	selectedArticleId: -1,
-	loadingStatus: false,
-	errorMessage: "",
-	statusMessage: ""
+	loadingStatus: false
 });
 
 function getArticlesByKeyMap(articles){

@@ -1,16 +1,25 @@
 import React, { Component } from "react";
 import List from "../components/List";
 import Form from "../components/Form";
+import Notifications from "../components/Notifications";
+import * as notificationSelectors from "../reducers/notification";
+import { connect } from "react-redux";
+const mapStateToProps = state => {
+	return { notifications: notificationSelectors.getNotifications(state) };  //load state using selectors!
+};
 
-
-class ArticleListing extends Component{
-	constructor(){
-		super();
-		console.log("Using refactored ArticleListing component!");
+class ArticleListingComponent extends Component{
+	constructor(props){
+		super(props);
 	}
 
 	render(){
-		return (<div className="row mt-5">
+		return (
+		<div>	
+		<div className="row mt-5">
+			<Notifications notification={this.props.notifications.pop()}/>
+		</div>
+		<div className="row mt-5">
 			<div className="col-md-4 offset-md-1">
 			<h2>Articles</h2>
 				<List />
@@ -19,12 +28,13 @@ class ArticleListing extends Component{
 				<h2>Add a new article</h2>
 				<Form/>
 			</div>	
-		</div>		
+		</div>	
+		</div>	
 		)
 	}
 }
 
-
+const ArticleListing = connect(mapStateToProps) (ArticleListingComponent);
 export default ArticleListing;
 
 

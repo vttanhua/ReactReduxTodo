@@ -25,5 +25,5 @@ class HttpResponseWrapper{
 
 module.exports = HttpResponseWrapper;
 
-// Allow use of default import syntax in TypeScript
+
 module.exports.default = HttpResponseWrapper;
