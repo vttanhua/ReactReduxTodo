@@ -55,8 +55,8 @@ class ConnectedList extends Component{
 				<table>
 					<tbody><tr>
 						<td>{el.title}</td>
-						<td><Link id={`details_${el.id}`} onClick={this.handleDetailsOnClick} to={`/articleDetails/${el.id}`} >Details</Link></td>
-						<td><Link id={`delete_${el.id}`} onClick={this.handleDeleteOnClick} to={`/articleDetails/${el.id}`} >Delete</Link></td>
+						<td><Link id={`details_${el.id}`} onClick={this.handleDetailsOnClick} to={`/articles/articleDetails/${el.id}`} >Details</Link></td>
+						<td><Link id={`delete_${el.id}`} onClick={this.handleDeleteOnClick} to={`/articles/articleDetails/${el.id}`} >Delete</Link></td>
 					</tr></tbody>
 				</table>
 			</li> 	

@@ -5,6 +5,8 @@ import {  	ADD_ARTICLE, ADD_ARTICLE_SUCCEEDED, ADD_ARTICLE_FAILED,
 		  	LOAD_ARTICLES_REQUESTED, LOADING_ARTICLES_SUCCEEDED, LOADING_ARTICLES_FAILED } from '../constants/article'
 import * as articleService from '../services/articleService'
 
+
+///TODO change to use action creators!
 function* addArticle(action){
 	try{
 		console.log("Creating article from redux-saga!"+action.payload.title);

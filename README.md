@@ -17,7 +17,11 @@ npm i && npm run start
 ## Meta
 
 Vesa Tanhua-Tyrkkö (vttanhua@icloud.com)
+based on mostly following articles + sources
 
+https://www.valentinog.com/blog/react-redux-tutorial-beginners/#React_Redux_tutorial_Form_component_and_Redux_actions
+
+http://jasonwatmore.com/post/2017/09/16/react-redux-user-registration-and-login-tutorial-example
 
 ## License
 

@@ -8,6 +8,14 @@ class Notification{
 		this.message = message;
 	}
 
+	static successNotification(message){
+		var p = new Notification(message,SUCCESS_NOTIFICATION);
+		return p;
+	}
+	static errorNotification(message){
+		var p = new Notification(message,ERROR_NOTIFICATION);
+		return p;
+	}
 	getMessage(){
 		return this.message;
 	}

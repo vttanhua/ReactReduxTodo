@@ -17,7 +17,7 @@ class ArticleListingComponent extends Component{
 		return (
 		<div>	
 		<div className="row mt-5">
-			<Notifications notification={this.props.notifications.pop()}/>
+			<Notifications notifications={this.props.notifications}/>
 		</div>
 		<div className="row mt-5">
 			<div className="col-md-4 offset-md-1">

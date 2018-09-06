@@ -13,6 +13,9 @@ class HttpResponseWrapper{
 	getData(){
 		return this.originalResponse.data;
 	}
+	getAuthorizationBearer(){
+		return this.originalResponse.headers["authorization"];
+	}
 
 	getCreatedObjectId(){
 		var locationHeader = this.originalResponse.headers["location"];

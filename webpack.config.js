@@ -35,5 +35,10 @@ module.exports = {
       filename: "[name].css",
       chunkFilename: "[id].css"
     })
-  ]
+  ],
+      externals: {
+        config: JSON.stringify({
+            apiUrl: 'http://localhost:8090'
+        })
+    }
 };

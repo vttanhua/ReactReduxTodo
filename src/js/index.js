@@ -6,53 +6,76 @@ import ArticleListing from "./Pages/ArticleListing";
 //import ArticleDetails from "./Pages/ArticleDetails";
 import ArticleDetails from "./Pages/ArticleDetailsMounted";
 import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
+import LoginPage from "./Pages/LoginPage";
+
+import Header from "./components/Header";
 
 const NavBar = () => (
 	<Router>
 		<div>
-			<ul>
-				<li>
-					<Link to="/">Home</Link>
-				</li>
-				<li>
-					<Link to="/about">About</Link>	
-				</li>
-				<li>
-					<Link to="/Topics">Topics</Link>
-				</li>
-			</ul>
-
 			<hr/>
 
-			<Route exact path="/" component={ArticleListing}/>
-			<Route path="/about" component={About}/>
-			<Route path="/topics" component={Topics}/>
-			<Route path="/articleDetails/:id" component={ArticleDetails}/>
+			<Route path="/index.html" component={Home}/>
+				<Route path="/articles/listing" component={ListingWrapper}/>
+				<Route path="/articles/about" component={About}/>
+				<Route path="/articles/topics" component={Topics}/>
+				<Route path="/articles/articleDetails/:id" component={ListingWrapper}/>
+			<Route path="/login" component={LoginWrapper}/>
 		</div>			
 	</Router>
 
  );
 
+const LoginWrapper = () => (
+	<div>
+	<Header/>
+		<div>
+			<LoginPage/>
+		</div>
+		</div>	
+	);
+
+const ListingWrapper = () => (
+	<div>
+	<Header/>
+		<div>
+			<ArticleListing/>
+		</div>
+		</div>	
+	);
+
 const Detail = ({ match }) => (
 		<div>
+		<Header/>
+		<div>
 			<h2>ArticleDetail:id is {match.params.id}</h2>
+		</div>
 		</div>	
 	);
 const About = () => (
+	<div>
+	<Header/>
 		<div>
 			<h2>About</h2>
+		</div>
 		</div>	
 	);
 
 const Home = () => (
+<div>
+	<Header/>
 		<div>
 			<h2>Home</h2>
 		</div>	
+		</div>
 	);
 
 const Topics = () => (
 		<div>
+		<Header/>
+		<div>
 			<h2>Topics</h2>
+		</div>
 		</div>	
 	);
 
