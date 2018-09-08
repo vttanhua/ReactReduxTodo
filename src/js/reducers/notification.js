@@ -10,7 +10,7 @@ const notificationReducer = (state = initialState, action) => {
 	switch (action.type){
 		case ADD_NOTIFICATION:{
 			console.log("Notification ("+action.payload.messageType+": "+action.payload.message+")");
-			return Immutable({ notifications: [...state.notifications, action.payload]});
+			return Immutable({ notifications: [action.payload,...state.notifications]});
 		}
 		default:
 			return state;

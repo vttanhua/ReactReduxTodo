@@ -5,7 +5,7 @@ import config from 'config';
 
 import HttpResponseWrapper from '../BusinessObjects/HttpResponseWrapper';
 
-var baseUrl = `${config.apiUrl}`;//"http://localhost:8090";
+var baseUrl = `${config.apiUrl}`;
 
 const client = axios.create({baseURL:baseUrl,headers:{'content-Type':'application/json',},});
 
@@ -13,7 +13,7 @@ export function authenticateUser(credentials){
 	return client.post(baseUrl+"/login",credentials).
 				then(response=>{ 
 					return new HttpResponseWrapper(response);}).
-				catch(err => {return err;})
+				catch(err => {return new HttpResponseWrapper(err);})
 } 
 
 /*
@@ -27,7 +27,7 @@ Content-Length: 59
 
 {
     "userName": "admin2",
-    "password": "password"
+    "password": "xxxxxx"
 }
 
 login:
@@ -39,7 +39,7 @@ Content-Length: 59
 
 {
     "username": "admin2",
-    "password": "password"
+    "password": "xxxxxx"
 }
 
 GET http://localhost:8090/api/article/ HTTP/1.1

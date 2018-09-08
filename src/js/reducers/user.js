@@ -4,6 +4,9 @@ import _ from 'lodash';
 
 const initialState =Immutable( {
 	userId: -1,
+	username: "",
+	loginSucceeded: false,
+	loginStatusMessage: "",
 	loginTime: "",
 	
 });
@@ -11,20 +14,17 @@ const initialState =Immutable( {
 const userReducer = (state = initialState, action) => {
 	switch (action.type){
 		case LOGIN_USER_SUCCEEDED:{
+			var jwt = action.payload.jwt;
 			console.log("Login user succeeded!!"+action.payload.username);
-			return state;
+			console.log("Authorization bearer is: "+jwt);
+			sessionStorage.setItem('jwt', jwt);
+			return Object.assign({}, state, {username: action.payload.username, loginSucceeded: true, loginStatusMessage: ""});
 		}
 		case LOGIN_USER_FAILED:{
 			console.log("Login user failed!!"+action.payload.username);
-			return state;
-		}
-		case LOGIN_USER:{
-			console.log("Logout user!!");
-			return  state;
-		}
-		case LOGOUT_USER:{
-			console.log("Logout user!!");
-			return  state;
+			var jwt = action.payload.jwt;
+			sessionStorage.setItem('jwt', jwt);
+			return Object.assign({}, state, {username: action.payload.username, loginSucceeded: false, loginStatusMessage: action.payload.message});
 		}
 		default:
 			return state;
@@ -36,6 +36,10 @@ const userReducer = (state = initialState, action) => {
 export function getLoggedInUser(state){
 	console.log("Inside getLoggedInUser TODO fix undefined return statement!");
 	return undefined;
+}
+
+export function loginSucceeded(state){
+	return state.user.loginSucceeded;
 }
 
 export default userReducer;

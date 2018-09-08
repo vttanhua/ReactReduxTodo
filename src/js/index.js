@@ -26,6 +26,15 @@ const NavBar = () => (
 
  );
 
+function requireAuth(nextState, replace){
+	if(sessionStorage.jwt){
+		replace({
+			pathname: '/login',
+			state: {nextPathname: nextState.location.pathname}
+		})
+	}
+}
+
 const LoginWrapper = () => (
 	<div>
 	<Header/>
